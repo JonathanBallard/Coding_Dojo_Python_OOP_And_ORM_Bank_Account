@@ -17,12 +17,32 @@ class User:
         self.balance -= amount
         other.balance += amount
 
-
+class BankAccount:
+    def __init__(self, int_rate = 0.01, balance = 0):
+        self.int_rate = int_rate
+        self.balance = balance
+    def deposit(self, amount):
+        self.balance += amount
+        return self
+    def withdraw(self, amount):
+        if self.balance >= amount:
+            self.balance -= amount
+            return self
+        else:
+            return "Insufficient funds"
+    def display_account_info(self):
+        print('Balance', self.balance)
+        print('Interest', self.int_rate)
+        return self
+    def yield_interest(self):
+        self.balance += (self.balance * self.int_rate)
+        return self
 
 user1 = User('michael', 'mchoi@mchoi.com')
 user2 = User('jonathan', 'jonathan@jonathan.com')
 user3 = User('Francis', 'fran@google.com')
-
+account1 = BankAccount()
+account2 = BankAccount()
 
 
 user1.deposit(550)
@@ -46,3 +66,11 @@ user3.display_user_balance()
 user1.transfer_money(user3, 500)
 user1.display_user_balance()
 user3.display_user_balance()
+
+account1.deposit(500).deposit(200).deposit(150).withdraw(500).display_account_info().yield_interest().display_account_info()
+
+account2.deposit(500).deposit(1500).withdraw(100).withdraw(200).withdraw(150).withdraw(50).yield_interest().display_account_info()
+
+
+
+
